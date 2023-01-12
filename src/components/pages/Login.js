@@ -1,8 +1,9 @@
 import React, { useState, createContext } from 'react'
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import UserData from '../../context/UserData';
 
-export const Username = createContext()
+// export const Username = createContext()
 
 const Login = () => {
 
@@ -12,8 +13,14 @@ const Login = () => {
     const [user, setUser] = useState(() => localStorage.getItem('tokens') ? JSON.parse(localStorage.getItem('tokens')) :null);
     const [tokens, setTokens] = useState(() => localStorage.getItem('tokens') ? jwt_decode(localStorage.getItem('tokens')) :null);
     // const [tokens, setTokens] = useState("")
-    // const [user, setUser] = useState("")
+    const [userid, setUserid] = useState("")
     const navigate = useNavigate();
+
+     const Data = (username) => {
+
+      <UserData username={username}/>
+
+    }
 
     const submit = async(e) => {
 
@@ -38,6 +45,7 @@ const Login = () => {
       if (response.status === 200) {
         setUsername(data.username)
         setTokens(data.tokens)
+        console.log(tokens.user_id)        
         setUser(jwt_decode(data.tokens.access)) // npm install jwt-decode
         localStorage.setItem('tokens', JSON.stringify(data.tokens))
         navigate('/')
@@ -79,10 +87,10 @@ const Login = () => {
 }
 
 
-export const SetUsername = ({contextData}) => {
+// export const SetUsername = ({contextData}) => {
 
-  return contextData
+//   return contextData
 
-}
+// }
 
 export default Login

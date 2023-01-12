@@ -1,14 +1,18 @@
-import { React, useContext } from 'react'
-import { SetUsername, Username } from './pages/Login'
+import { React } from 'react'
+import UserData from '../context/UserData';
+
+  
 
 const Header = () => {
+    const userdata = UserData()
+    const username = userdata
 
-const username = SetUsername()
+	console.log('username:', username);
 
     if ({username}){
         return (
             <div>
-                <p>Hi, {username.username}</p>
+                <p>Hi, {username}</p>
             </div>
           )
     }else{
