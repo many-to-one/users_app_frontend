@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { isAuthenticated, login } from '../../services/AuthService';
+import { register } from '../../services/AuthService';
 
-const Login = () => {
-
+const Register = () => {
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -12,13 +12,10 @@ const Login = () => {
       e.preventDefault();
 
       try {
-        await login(email, password);
+        await register(username, email, password);
       } catch (error) {
         console.error('error', error);
       }
-
-      const responseUser = isAuthenticated()
-      console.log('data', responseUser)
 
     };
 
@@ -26,6 +23,16 @@ const Login = () => {
     <div className='auth-cont' onSubmit={submit}>
       <form className='auth-form'>
         <input
+          placeholder='username'
+          type='username'
+          name='username'
+          id='username'
+          value={username}
+          required
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          placeholder='email'
           type='email'
           name='email'
           id='email'
@@ -34,6 +41,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          placeholder='password'
           type='password'
           name='password'
           id='password'
@@ -42,12 +50,16 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button className='auth-btn'>
-          Login
+          Register
         </button>
       </form>
+      <div>
+        <p>Already have an account?</p>
+        <Link to={'/login'}>Login</Link>
+      </div>
     </div>
 
   )
 }
 
-export default Login
+export default Register
