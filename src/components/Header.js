@@ -9,10 +9,8 @@ import '../styles_css/Header.css';
 const Header = () => {
 
     const {username} = isAuthenticated()
-    // const {access} = isAuthenticated()
 
 	console.log('username:', username);
-    // console.log('access:', access);
 
     return (
         <div className='header-cont'>

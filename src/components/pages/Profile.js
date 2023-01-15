@@ -22,7 +22,7 @@ const Profile = () => {
       <p>{user.username}</p>
       <p>{user.email}</p>
       <p>If you whant to change password
-        <Link to={'/register'}>Click Here</Link>
+        <Link to={'/request-reset-email'}>Click Here</Link>
       </p>
     </div>
 

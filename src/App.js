@@ -11,6 +11,8 @@ import Header from './components/Header';
 import Logout from './components/pages/Logout';
 import Register from './components/pages/Register';
 import Profile from './components/pages/Profile';
+import RequestResetMail from './components/pages/RequestResetMail';
+import PasswordReseteComplete from './components/pages/PasswordReseteComplete';
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route path='/logout' exact element={<Logout/>} />
           <Route path='/' exact element={<Home/>} />
           <Route path='/profile' exact element={<Profile/>} />
+          <Route path='/request-reset-email' exact element={<RequestResetMail />} />
+          <Route path='/password-reset-complete' exact element={<PasswordReseteComplete />} />
         </Routes>
       </BrowserRouter>
     </div>
