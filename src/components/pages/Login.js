@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { isAuthenticated, login } from '../../services/AuthService';
+import { login } from '../../services/AuthService';
 
 const Login = () => {
 
@@ -16,9 +16,6 @@ const Login = () => {
       } catch (error) {
         console.error('error', error);
       }
-
-      const responseUser = isAuthenticated()
-      console.log('data', responseUser)
 
     };
 
@@ -45,6 +42,13 @@ const Login = () => {
           Login
         </button>
       </form>
+
+        <div>
+          <p>Don't have an account?
+          <Link to={'/register'}>Register</Link>
+          </p>
+        </div>
+
     </div>
 
   )

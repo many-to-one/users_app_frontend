@@ -37,11 +37,8 @@ export const login = async (email, password) => {
       const data = await response.json()
   
       if (response.status === 200) {
-        console.log('data:', data)
         localStorage.setItem('email', data.email)
         localStorage.setItem('username', data.username)
-        localStorage.setItem('access', data.tokens.access)
-        localStorage.setItem('refresh', data.tokens.refresh)
         window.location.replace('/')
       }else{
         alert('Your login or password is incorrect')
@@ -53,15 +50,12 @@ export const login = async (email, password) => {
 	
 
 export const isAuthenticated = () => {
-	const username = localStorage.getItem('username');
+	  const username = localStorage.getItem('username');
     const email = localStorage.getItem('email');
-    const access = localStorage.getItem('access');
-    const refresh = localStorage.getItem('refresh');
+
     let data = {
         email: email,
         username: username,
-        access: access,
-        refresh: refresh,
     };
 	if (!data) {
 		return {}
@@ -88,8 +82,9 @@ export const logout = async() => {
         }, 
     });  
       
-      localStorage.removeItem('access')
-      localStorage.removeItem('refresh')
+      // localStorage.removeItem('access')
+      // localStorage.removeItem('refresh')
+      // localStorage.removeItem('tokens')
       localStorage.removeItem('email')
       localStorage.removeItem('username')
       window.location.replace("/")
