@@ -1,28 +1,35 @@
 import React, { useState } from 'react'
+import { isAuthenticated } from '../../services/AuthService'
 
 const PasswordReseteComplete = () => {
 
     const [password, setPassword] = useState('')
 
-    const SetNewPassword = async() => {
+    const submit = async() => {
+      const {uidb64Service} = isAuthenticated();
+      const {tokenService} = isAuthenticated();
 
-        const response =  await fetch(`password-reset-complete/`, {
-            method: 'PATCH',
+        // e.preventDefault()
+
+        const response =  await fetch("/users/password-reset-complete/", {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body:JSON.stringify({
                 password,
+                uidb64Service,
+                tokenService,
             })
         });
         const data = await response.json()
-        console.log(data)
+        console.log(uidb64Service)
 
     } 
 
   return (
     <div>
-      <form className='auth-form'>
+      <form className='auth-form' onSubmit={submit}>
       <input
           type='password'
           name='password'

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { isAuthenticated } from '../../services/AuthService';
-import PasswordReset from './PasswordReset';
+import { isAuthenticated, passwordResetService } from '../../services/AuthService';
 
 const RequestResetMail = () => {
 
     const {email} = isAuthenticated()
+    const [response, setResponse] = useState('')
     const redirect_url = 'test'
     const [uidb64, setUidb64] = useState('')
     const [token, setToken] = useState('')
-    const [response, setResponse] = useState('')
+    const [success, setSuccess] = useState(false)
 
     useEffect(() => {
         SendRequest()
@@ -32,24 +32,39 @@ const RequestResetMail = () => {
           setToken(data.token)
           console.log(data)
 
+          if (response.status === 200){
+            setSuccess(true)
+          }else{
+            alert('Something is wrong...')
+          }
+
     }
 
 
-    //   if (response.status === 200) {
+     const passwordReset = async() => {
 
+        try {
+            await passwordResetService(uidb64, token);
+          } catch (error) {
+            console.error('error', error);
+          }
+      
+    }
+
+    if(success){
         return (
-
-                <PasswordReset 
-                  uidb64={uidb64}
-                  token={token}
-                />
-
-            
-          )
-
-    //   }else{
-    //     alert('Something was wrong...')
-    //   }
+            <div>
+                <button onClick={passwordReset}>Reset Password</button>
+                <p>After you click the button, please check your email</p>
+            </div>
+        )
+    }else{
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
+    }
 
 }
 

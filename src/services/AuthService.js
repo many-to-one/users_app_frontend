@@ -47,15 +47,34 @@ export const login = async (email, password) => {
       return response.data;
 };
 
-	
+
+export const passwordResetService = async(uidb64, token) => {
+
+  const response =  await fetch(`/users/password-reset/${uidb64}/${token}/`, {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+  });
+  const data = await response.json()
+  console.log(data)
+  localStorage.setItem('uidb64Service', data.uidb64)
+  localStorage.setItem('tokenServise', data.token)
+
+}
+
 
 export const isAuthenticated = () => {
 	  const username = localStorage.getItem('username');
     const email = localStorage.getItem('email');
+    const uidb64Service = localStorage.getItem('uidb64Service');
+    const tokenServise = localStorage.getItem('tokenServise');
 
     let data = {
         email: email,
         username: username,
+        uidb64Service: uidb64Service,
+        tokenServise: tokenServise,
     };
 	if (!data) {
 		return {}
@@ -73,14 +92,7 @@ export const logout = async() => {
             'Content-Type': 'application/json'
         },
         
-      });
-    
-    const inactive = await fetch(`users/inactive/${email}/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }, 
-    });  
+      });  
       
       // localStorage.removeItem('access')
       // localStorage.removeItem('refresh')
