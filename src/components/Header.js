@@ -15,7 +15,7 @@ const Header = () => {
     return (
         <div className='header-cont'>
 
-          <Link to={'/'}>
+          <Link to={'/home'}>
             Home
           </Link>    
           {username ? (
@@ -35,7 +35,7 @@ const Header = () => {
               
             </div>
             ): (
-              <Link to={'/login'}>
+              <Link to={'/'}>
                 Login
               </Link>
             )}

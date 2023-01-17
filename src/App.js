@@ -22,9 +22,9 @@ function App() {
         <Header/>
         <Routes>
           <Route path='/register' exact element={<Register/>} />
-          <Route path='/login' exact element={<Login/>} />
+          <Route path='/' exact element={<Login/>} />
           <Route path='/logout' exact element={<Logout/>} />
-          <Route path='/' exact element={<Home/>} />
+          <Route path='/home' exact element={<Home/>} />
           <Route path='/profile' exact element={<Profile/>} />
           <Route path='/request-reset-email' exact element={<RequestResetMail />} />
           <Route path='/password-reset-complete' exact element={<PasswordReseteComplete />} />

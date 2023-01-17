@@ -44,7 +44,7 @@ const RequestResetMail = () => {
      const passwordReset = async() => {
 
         try {
-            await passwordResetService(uidb64, token);
+             passwordResetService(uidb64, token);
           } catch (error) {
             console.error('error', error);
           }

@@ -15,7 +15,7 @@ export const register = async (username ,email, password) => {
       const data = await response.json()
       console.log(data)
       if(response.status === 201) {
-        window.location.replace('/login')
+        window.location.replace('/')
       }else{
         alert('The data you provided is incorrect, please try again')
       }
@@ -39,7 +39,8 @@ export const login = async (email, password) => {
       if (response.status === 200) {
         localStorage.setItem('email', data.email)
         localStorage.setItem('username', data.username)
-        window.location.replace('/')
+        localStorage.setItem('token', data.token)
+        window.location.replace('/home')
       }else{
         alert('Your login or password is incorrect')
       }
@@ -58,7 +59,16 @@ export const passwordResetService = async(uidb64, token) => {
   });
   const data = await response.json()
   console.log(data)
-  localStorage.setItem('uidb64Service', data.uidb64)
+
+  if (response.status === 200){
+
+    try {
+      await logout();
+    } catch (error) {
+      console.error('error', error);
+    }
+  };
+  localStorage.setItem('uidb64Servise', data.uidb64)
   localStorage.setItem('tokenServise', data.token)
 
 }
@@ -67,13 +77,15 @@ export const passwordResetService = async(uidb64, token) => {
 export const isAuthenticated = () => {
 	  const username = localStorage.getItem('username');
     const email = localStorage.getItem('email');
-    const uidb64Service = localStorage.getItem('uidb64Service');
+    const token = localStorage.getItem('token');
+    const uidb64Servise = localStorage.getItem('uidb64Service');
     const tokenServise = localStorage.getItem('tokenServise');
 
     let data = {
         email: email,
         username: username,
-        uidb64Service: uidb64Service,
+        token: token,
+        uidb64Servise: uidb64Servise,
         tokenServise: tokenServise,
     };
 	if (!data) {
@@ -94,9 +106,9 @@ export const logout = async() => {
         
       });  
       
-      // localStorage.removeItem('access')
-      // localStorage.removeItem('refresh')
-      // localStorage.removeItem('tokens')
+      localStorage.removeItem('access')
+      localStorage.removeItem('refresh')
+      localStorage.removeItem('tokens')
       localStorage.removeItem('email')
       localStorage.removeItem('username')
       window.location.replace("/")
